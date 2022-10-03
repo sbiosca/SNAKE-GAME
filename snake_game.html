@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>BiosGame</title>
+</head>
+<body>
+    <div class="main">
+        <h1>SNAKE GAME</h1>
+        <div id="USER">
+            <strong>Insert username:</strong>
+            <form autocomplete="on">Name
+                <input type="text" placeholder="Username" id="insert_user">
+            </form>
+            <p>CHOOSE THE MAP:</p>
+            <input type="file" accept="image/*" id="file_map" onchange="choose_map(4)"/><p></p>
+            PUT URL FILE: <input type="url" id="file_url" onchange="choose_map(5)" placeholder="https://ejemplo-es.jpg"/><p></p>
+            <button onclick="choose_map(1)"><img id="mapa1" src="images/fondo1.jpg" width="100px" height="118px"></button>
+            <button onclick="choose_map(2)"><img id="mapa2" src="images/fondo2.jpg" width="100px" height="118px"></button>
+            <button onclick="choose_map(3)"><img id="mapa3" src="images/fondo3.jpg" width="100px" height="118px"></button><p></p>
+            <button onclick="start_game()"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" width="20px" height="25px"/></button><p></p>
+            <button onclick="show_infor()">INFORMATION</button>
+            <div id="infor">
+                <p>WELCOME TO GAME INFORMATION: </p>
+                <ul>
+                    <li>The game is control on the keys:</li>
+                        <ul>
+                            <li type="circle">A or 4, go left <-</li>
+                            <li type="circle">D or 6, go right -></li>
+                            <li type="circle">S or 2, go down _</li>
+                            <li type="circle">W or 8, go top -</li>
+                        </ul><p></p>
+                    <li>The game consists of controlling the snake and eating as many points as possible.</li><p></p>
+                    <li>You lost when the snake touches the wall or touches herself.</li><p></p>
+                    <li>In the main, you can choose the map(find your favourite photo to put in the background), put your username and <br>
+                        ENYOY THE GAME!</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="PLAY_GAME">
+            <strong id="username"></strong>
+            <p id="puntuation">SCORE: <a id="puntuation2">0</a> </p><p id="puntuation_later">TOP SCORE:</p>
+            <canvas id="miCanvas" width="400" height="400"></canvas>
+            <div id="conf">
+                <button onclick="start_game()"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" width="20px" height="25px"/></button>
+                <button onclick="stop_game()"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/High-contrast-dialog-close.svg/768px-High-contrast-dialog-close.svg.png" width="20px" height="25px"/></button>
+                <button onclick="reset_game()"><img src="https://cdn-icons-png.flaticon.com/512/2618/2618245.png" width="20px" height="25px"/></button>
+                <button onclick="stop_music()"><img id="audio" src="https://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg" width="20px" height="25px"/></button>
+            </div>
+            <script src="snake_game.js"></script>
+        </div>
+        <div id="lose_game">
+            <strong class="losed">END, YOU LOST!</strong>
+        </div>
+    </div>
+</body>
+</html>

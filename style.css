@@ -1,0 +1,36 @@
+body {
+    background-color: rgb(215, 215, 215);
+    margin: 64px;
+    text-align: center; 
+}
+
+.main {
+    border: 2px solid black;
+    position: relative;
+    top: 185px;
+    background-color: rgb(4, 250, 66);
+}
+
+canvas {
+    border: solid 12px rgb(0, 0, 0);
+    background-color: aquamarine;
+}
+
+#lose_game {
+    display: none;
+}
+
+
+.losed {
+    font-size: 80px;
+    color: red;
+    text-align: center;
+}
+
+#infor {
+    background-color: bisque;
+    width: 250px;
+    position: relative;
+    left: 23cm;
+    font-family: Arial, Helvetica, sans-serif;
+}
