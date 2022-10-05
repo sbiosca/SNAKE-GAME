@@ -28,18 +28,32 @@ let snake_state = { //snake_state, define the values of snake, ball, direction, 
     ball: [{x: 0, y: 0}],
     direction: {x: 1, y: 0},
     chan: {x: 0, y: 0},
+    chan1: {x1: 0, y1: 0},
     state: 0,
     runSnake: run_game,
     velocity: 120,
 }
 
 //FUNCTION RANDOM NUMBER, choose a random number in the board
-random_number = () => {
-    return {
-        x: parseInt(Math.random() * board1),
-        y: parseInt(Math.random() * board2)
-    };
+random_number = (key) => {
+    switch (key) {
+        case 1:
+            return {
+                x: parseInt(Math.random() * board1),
+                y: parseInt(Math.random() * board2)
+            };
+            break;
+        case 2:
+            return {
+                x1: parseInt(Math.random() * board1),
+                y1: parseInt(Math.random() * board2)
+            };
+            break
+        default:
+            break;
+    }
 }
+
 
 //FUNCTION GAME_SNAKE, this function have
 game_snake = () => {
@@ -108,7 +122,8 @@ game_snake = () => {
         }
        
         snake_state.state = length_snake; //NOW THE LENGTH SNAKE IS THE SAME THAN state (to augment length)
-        snake_state.chan = random_number(); //VARIABLE CHAN TO RANDOM NUMBER, TO BALL APPEAR IN ANOTHER PLACE OF THE BOARD
+        snake_state.chan = random_number(1);//VARIABLE CHAN TO RANDOM NUMBER, TO BALL APPEAR IN ANOTHER PLACE OF THE BOARD
+        snake_state.chan1 = random_number(2); 
         console.log(snake_state.chan);
         let puntuation = document.getElementById('puntuation2'); //GET THE PUNTUATION ACTUAL TO AUGMENT THE NEW SCORE +1
         scored++; //AUGMENT SCORED +1
@@ -127,7 +142,14 @@ game_snake = () => {
 colision = () => { //FUNCTION COLISION, when the SNAKE touch the wall
     const head = snake_state.ball[0]; //NOW const HEAD is the direcction ball
     let i = 1;
+    let number_snake = head.y +"_"+ head.x;
+    let number_block = snake_state.chan1.y1 + "_" + snake_state.chan1.x1;
     if (head.y >= board2 || head.y < 0 || head.x < 0 || head.x >= board1) { //IF directions x and y are less or same than 0
+        return true;
+    }
+    
+    if (number_snake === number_block) {
+        console.log("AAAAAA");
         return true;
     }
 
@@ -162,7 +184,10 @@ square_draw = () => { //draw square.
         snake_draw("blue", x, y);
     }
     const {x, y} = snake_state.chan;
-    snake_draw("red", x, y); //Print ball red
+    snake_draw("red", x, y);
+    
+    const {x1, y1} = snake_state.chan1;
+    snake_draw("black", x1, y1);//Print ball red
     
 }
 
