@@ -23,12 +23,12 @@ const length_snake = 2; //LENGTH SNAKE
 const music_score = new Audio('sound/mordisco.mp3'); //DECLARE music when the user get a new score, play this audio
 const music_colision = new Audio('sound/sfx-horror10.mp3'); //DECLARE music colision, when the user colision with snake, play this audio to game over
 const music_dir = new Audio("sound/game.mp3"); //DECLARE music direction, when the user change the direction with snake, play this audio 
-let scored = -1; //PUNTUATION BEGIN -1
+let scored = 8; //PUNTUATION BEGIN -1
 let snake_state = { //snake_state, define the values of snake, ball, direction, velocity...
     ball: [{x: 0, y: 0}],
     direction: {x: 1, y: 0},
-    chan: {x: 0, y: 0},
-    chan1: {x1: 0, y1: 0},
+    chan: {x: 0, y: 0}, //direction ball aliment
+    chan1: {x1: 0, y1: 0}, //direction ball colision
     state: 0,
     runSnake: run_game,
     velocity: 120,
@@ -91,15 +91,17 @@ game_snake = () => {
         let record = document.getElementById('puntuation_later'); //NEW_SCORE TO PRINT 
         let puntuation = document.getElementById('puntuation2'); //ACTUAL PUNTUATION
         let new_score = puntuation.textContent; //SELECT THE ACTUAL PUNTUATION
-        let old_score = localStorage.getItem('SCORED'); //GET IN LOCALSTORAGE OLD_SCORE
+        let old_score = 0 + localStorage.getItem('SCORED'); //GET IN LOCALSTORAGE OLD_SCORE
         snake_state.state = 0; //STATE SNAKE NOW IS 0
         snake_state.runSnake = 0; //SNAKE NOW IS 0, BECAUSE THE SNAKE DIE
         snake_state.chan = 0; //CHANGE SNAKE 0
+
 
         if (new_score > old_score) { //IF OLD_SCORE IS SMALLER THAN NEW_SCORE ENTER IN THIS FUNCTION TO AUGMENT THE PUNTUATION IN THE SCOREBOARD
             localStorage.removeItem('SCORED'); //REMOVE THE OLD_SCORE IN LOCALSTORAGE
             record.innerHTML = "RECORD:"+new_score; //PRINT THE NEW_SCORE TOP, IN THE SCOREBOARD
             localStorage.setItem('SCORED', new_score); //PUT THE NEW_SCORE IN LOCALSTORAGE
+            console.log("AAAAAAAAAS");
         }
         let canvas = document.getElementById('miCanvas'); //SELECT THE CANVAS ELEMENT
         canvas.style.backgroundImage = 'url(images/game_over.jpg)'; //PUT THE BACKGROUND OF BOARD THE GAME OVER TO END GAME
@@ -149,7 +151,6 @@ colision = () => { //FUNCTION COLISION, when the SNAKE touch the wall
     }
     
     if (number_snake === number_block) {
-        console.log("AAAAAA");
         return true;
     }
 
