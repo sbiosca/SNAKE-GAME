@@ -10,18 +10,19 @@
 <body>
     <div class="main">
         <h1>SNAKE GAME</h1>
-        <div id="USER">
+        <div id="LOGIN">
             <form autocomplete="on">
-                <button class="login">LOGIN</button>
-                <button class="regi">REGISTER</button><p></p>
-                <input type="text" placeholder="Username" id="insert_user">
+                <button class="login"><a href="../auth/login.html">LOGIN</a></button>
+                <button class="regi"><a href="../auth/login.html">REGISTER</a></button><p></p>
             </form>
+        </div>
+        <div id="USER">
             <p>CHOOSE THE MAP:</p>
             <input type="file" accept="image/*" id="file_map" onchange="choose_map(4)"/><p></p>
             PUT URL FILE: <input type="url" id="file_url" onchange="choose_map(5)" placeholder="https://ejemplo-es.jpg"/><p></p>
-            <button onclick="choose_map(1)"><img id="mapa1" src="images/fondo1.jpg" width="100px" height="118px"></button>
-            <button onclick="choose_map(2)"><img id="mapa2" src="images/fondo2.jpg" width="100px" height="118px"></button>
-            <button onclick="choose_map(3)"><img id="mapa3" src="images/fondo3.jpg" width="100px" height="118px"></button><p></p>
+            <button onclick="choose_map(1)"><img id="mapa1" src="../../assets/images/fondo1.jpg" width="100px" height="118px"></button>
+            <button onclick="choose_map(2)"><img id="mapa2" src="../../assets/images/fondo2.jpg" width="100px" height="118px"></button>
+            <button onclick="choose_map(3)"><img id="mapa3" src="../../assets/images/fondo3.jpg" width="100px" height="118px"></button><p></p>
             <button onclick="start_game()"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" width="20px" height="25px"/></button><p></p>
             <button onclick="show_infor()">INFORMATION</button>
             <div id="infor">
@@ -45,7 +46,7 @@
         <div id="PLAY_GAME">
             <strong id="username"></strong>
             <p id="puntuation">SCORE: <a id="puntuation2">0</a> </p><p id="puntuation_later">TOP SCORE:</p>
-            <canvas id="miCanvas" width="400" height="400"></canvas>
+            <canvas id="miCanvas" width="400" height="400" class="canvas"></canvas>
             <div id="conf">
                 <button onclick="start_game()"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" width="20px" height="25px"/></button>
                 <button onclick="stop_game()"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/High-contrast-dialog-close.svg/768px-High-contrast-dialog-close.svg.png" width="20px" height="25px"/></button>

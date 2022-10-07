@@ -8,18 +8,24 @@ body {
     border: 2px solid black;
     position: relative;
     top: 185px;
+    height: 668px;
     background-color: rgb(132, 185, 145);
 }
 
 canvas {
     border: solid 10px rgb(0, 0, 0);
     background-color: aquamarine;
+    z-index: 1;
 }
 
 #lose_game {
     display: none;
 }
 
+a {
+    text-decoration: none;
+    color:#3a8a9e;
+}
 
 .losed {
     font-size: 80px;

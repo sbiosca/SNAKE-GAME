@@ -20,10 +20,10 @@ const size = 10; //SIZE SNAKE
 const board1 = 40; //WIDTH TABLERO
 const board2 = 40; //HEIGHT TABLERO
 const length_snake = 2; //LENGTH SNAKE
-const music_score = new Audio('sound/mordisco.mp3'); //DECLARE music when the user get a new score, play this audio
-const music_colision = new Audio('sound/sfx-horror10.mp3'); //DECLARE music colision, when the user colision with snake, play this audio to game over
-const music_dir = new Audio("sound/game.mp3"); //DECLARE music direction, when the user change the direction with snake, play this audio 
-let scored = 8; //PUNTUATION BEGIN -1
+const music_score = new Audio('../../assets/sound/mordisco.mp3'); //DECLARE music when the user get a new score, play this audio
+const music_colision = new Audio('../../assets/sound/sfx-horror10.mp3'); //DECLARE music colision, when the user colision with snake, play this audio to game over
+const music_dir = new Audio("../../assets/sound/game.mp3"); //DECLARE music direction, when the user change the direction with snake, play this audio 
+let scored = -1; //PUNTUATION BEGIN -1
 let snake_state = { //snake_state, define the values of snake, ball, direction, velocity...
     ball: [{x: 0, y: 0}],
     direction: {x: 1, y: 0},
@@ -42,13 +42,13 @@ random_number = (key) => {
                 x: parseInt(Math.random() * board1),
                 y: parseInt(Math.random() * board2)
             };
-            break;
+            
         case 2:
             return {
                 x1: parseInt(Math.random() * board1),
                 y1: parseInt(Math.random() * board2)
             };
-            break
+            
         default:
             break;
     }
@@ -101,10 +101,9 @@ game_snake = () => {
             localStorage.removeItem('SCORED'); //REMOVE THE OLD_SCORE IN LOCALSTORAGE
             record.innerHTML = "RECORD:"+new_score; //PRINT THE NEW_SCORE TOP, IN THE SCOREBOARD
             localStorage.setItem('SCORED', new_score); //PUT THE NEW_SCORE IN LOCALSTORAGE
-            console.log("AAAAAAAAAS");
         }
         let canvas = document.getElementById('miCanvas'); //SELECT THE CANVAS ELEMENT
-        canvas.style.backgroundImage = 'url(images/game_over.jpg)'; //PUT THE BACKGROUND OF BOARD THE GAME OVER TO END GAME
+        canvas.style.backgroundImage = 'url(../../assets/images/game_over.jpg)'; //PUT THE BACKGROUND OF BOARD THE GAME OVER TO END GAME
         
         setTimeout (() => { //PUT TIMEOUT of 5 seconds TO STOP GAME
             stop_game();
@@ -125,8 +124,9 @@ game_snake = () => {
        
         snake_state.state = length_snake; //NOW THE LENGTH SNAKE IS THE SAME THAN state (to augment length)
         snake_state.chan = random_number(1);//VARIABLE CHAN TO RANDOM NUMBER, TO BALL APPEAR IN ANOTHER PLACE OF THE BOARD
-        snake_state.chan1 = random_number(2); 
-        console.log(snake_state.chan);
+        snake_state.chan1 = random_number(2);
+        
+        console.log(snake_state.chan1);
         let puntuation = document.getElementById('puntuation2'); //GET THE PUNTUATION ACTUAL TO AUGMENT THE NEW SCORE +1
         scored++; //AUGMENT SCORED +1
         puntuation.innerHTML = scored; //PRINT THE NEW SCORE IN THE BOARD
@@ -153,6 +153,10 @@ colision = () => { //FUNCTION COLISION, when the SNAKE touch the wall
     if (number_snake === number_block) {
         return true;
     }
+    // console.log(number_snake);
+    // if (number_snake === "13_25") {
+    //     return true;
+    // }
 
     while (i < snake_state.ball.length) { //Bucle while length ball, depend direction return true or false
         const ssn = snake_state.ball[i];
@@ -183,6 +187,7 @@ square_draw = () => { //draw square.
         const {x, y} = snake_state.ball[i];
         i++;
         snake_draw("blue", x, y);
+        // console.log(x,y)
     }
     const {x, y} = snake_state.chan;
     snake_draw("red", x, y);
@@ -297,17 +302,19 @@ choose_map = (type) => { //To choose the map, the user can choose the map in dif
 }
 
 start_game = () => { //FUNCTION START GAME, get differents elemnt to apply changes of the game (score, display, user...)
-    let username = document.getElementById("username");
-    let insert = document.getElementById("insert_user");
+    // let username = document.getElementById("username");
+    // let insert = document.getElementById("insert_user");
     let display_user = document.getElementById("USER");
+    let display_login = document.getElementById("LOGIN");
     let score = localStorage.getItem('SCORED');
     let record = document.getElementById('puntuation_later');
     let display_board = document.getElementById("PLAY_GAME");
-    console.log(insert.value);
-    
-    username.innerHTML = "PLAYER: "+ insert.value;
     
     display_user.style.display = "none";
+    display_login.style.display = "none";
+    // username.innerHTML = "PLAYER: "+ insert.value;
+    
+    
     
     if (score > 0) { //IN THE LOCALSTORAGE there are the old score, if this score is greater than 0, print score
         record.innerHTML = "RECORD:"+score;
