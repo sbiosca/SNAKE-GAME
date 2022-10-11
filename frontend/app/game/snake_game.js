@@ -266,6 +266,11 @@ display = () => { //Display disponible in the game
     display_board.style.display = "none";
     let display_infor = document.getElementById("infor");
     display_infor.style.display = "none";
+    // let user = document.getElementById('username1');
+    // console.log(user.textContent)
+    // if (user.textContent == 0) {
+    //     let start = document.getElementById('start').disabled = true;
+    // }
 }
 
 choose_map = (type) => { //To choose the map, the user can choose the map in different photos or url files
@@ -346,3 +351,4 @@ start_game = () => { //FUNCTION START GAME, get differents elemnt to apply chang
 //CALL TWO FUNCTIONS
 choose_map();
 display();
+

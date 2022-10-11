@@ -17,13 +17,23 @@
             </form>
         </div>
         <div id="USER">
-            <p>CHOOSE THE MAP:</p>
-            <input type="file" accept="image/*" id="file_map" onchange="choose_map(4)"/><p></p>
-            PUT URL FILE: <input type="url" id="file_url" onchange="choose_map(5)" placeholder="https://ejemplo-es.jpg"/><p></p>
-            <button onclick="choose_map(1)"><img id="mapa1" src="../../assets/images/fondo1.jpg" width="100px" height="118px"></button>
-            <button onclick="choose_map(2)"><img id="mapa2" src="../../assets/images/fondo2.jpg" width="100px" height="118px"></button>
-            <button onclick="choose_map(3)"><img id="mapa3" src="../../assets/images/fondo3.jpg" width="100px" height="118px"></button><p></p>
-            <button onclick="start_game()"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" width="20px" height="25px"/></button><p></p>
+            USERNAME:<p id="username1"></p>
+            <p>CHOOSE THE LEVEL:</p>
+            <!-- <input type="file" accept="image/*" id="file_map" onchange="choose_map(4)"/><p></p>
+            PUT URL FILE: <input type="url" id="file_url" onchange="choose_map(5)" placeholder="https://ejemplo-es.jpg"/><p></p> -->
+            <button onclick="choose_map(1)">
+                <img id="mapa1" src="../../assets/images/fondo1.jpg" width="100px" height="118px"><p></p>
+                <strong>CLASIC</strong>
+            </button>
+            <button onclick="choose_map(2)">
+                <img id="mapa2" src="../../assets/images/fondo2.jpg" width="100px" height="118px"><p></p>
+                <strong>ADVANCED</strong>
+            </button>
+            <button onclick="choose_map(3)">
+                <img id="mapa3" src="../../assets/images/fondo3.jpg" width="100px" height="118px"><p></p>
+                <strong>PRO</strong>
+            </button><p></p>
+            <button id="start" onclick="start_game()"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" width="20px" height="25px"/></button><p></p>
             <button onclick="show_infor()">INFORMATION</button>
             <div id="infor">
                 <p>WELCOME TO GAME INFORMATION: </p>
