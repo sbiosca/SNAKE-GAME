@@ -30,10 +30,11 @@
                 <strong>ADVANCED</strong>
             </button>
             <button onclick="choose_map(3)">
-                <img id="mapa3" src="../../assets/images/fondo3.jpg" width="100px" height="118px"><p></p>
+                <img id="mapa3" src="../../assets/images/pro/fondo3_pro.jpg" width="100px" height="118px"><p></p>
                 <strong>PRO</strong>
             </button><p></p>
             <button id="start" onclick="start_game()"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" width="20px" height="25px"/></button><p></p>
+            <span id="validation" style="color:red;">You must choose the level</span><p></p>
             <button onclick="show_infor()">INFORMATION</button>
             <div id="infor">
                 <p>WELCOME TO GAME INFORMATION: </p>
@@ -56,6 +57,7 @@
         <div id="PLAY_GAME">
             <strong id="username"></strong>
             <p id="puntuation">SCORE: <a id="puntuation2">0</a> </p><p id="puntuation_later">TOP SCORE:</p>
+            <p id="level">LEVEL: </p>
             <canvas id="miCanvas" width="400" height="400" class="canvas"></canvas>
             <div id="conf">
                 <button onclick="start_game()"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" width="20px" height="25px"/></button>
@@ -68,6 +70,9 @@
         <div id="lose_game">
             <strong class="losed">END, YOU LOST!</strong>
         </div>
+        <script id="pro" src="levels/pro/level_pro.js"></script>
+        <script id="classic" src="levels/clasic/level_classic.js"></script>
+        <script id="advanced" src="levels/advanced/level_advanced.js"></script>
     </div>
 </body>
 </html>

@@ -32,6 +32,8 @@ let snake_state = { //snake_state, define the values of snake, ball, direction, 
     state: 0,
     runSnake: run_game,
     velocity: 120,
+    level: "",
+    url_map: ""
 }
 
 //FUNCTION RANDOM NUMBER, choose a random number in the board
@@ -130,7 +132,16 @@ game_snake = () => {
         let puntuation = document.getElementById('puntuation2'); //GET THE PUNTUATION ACTUAL TO AUGMENT THE NEW SCORE +1
         scored++; //AUGMENT SCORED +1
         puntuation.innerHTML = scored; //PRINT THE NEW SCORE IN THE BOARD
-        levels(scored); //CALL THE FUNCTION LEVEL IN THE NEW PUNTUATION TO PASS THE LEVEL AND THE GAME IS MORE
+        //console.log(snake_state.level);
+        if (snake_state.level === "CLASSIC") {
+            levels_classic(scored); 
+        }else if(snake_state.level === "ADVANCED") {
+            levels_adv(scored); 
+        }else if (snake_state.level === "PRO") {
+            levels_pro(scored, snake_state.url_map);    
+        }
+
+         //CALL THE FUNCTION LEVEL IN THE NEW PUNTUATION TO PASS THE LEVEL AND THE GAME IS MORE
     }
 
     if (snake_state.state > 0) { //THIS FUNCTION USE FOR TO AUGMENT THE LENGTH WHEN SNAKE EAT NEW BALL
@@ -197,40 +208,6 @@ square_draw = () => { //draw square.
     
 }
 
-levels = (scored) => { //IN THIS function apply a switch case to push differents level. IF score is 2, 4, 5... the velocity augment
-                        //and the game is more difficult
-    console.log(scored);
-
-    switch (scored) {
-        case 2:
-            snake_state.velocity = 110;
-            break;
-        case 4:
-            snake_state.velocity = 100;
-            break;
-        case 5:
-            snake_state.velocity = 85;
-            break;    
-        case 7:
-            snake_state.velocity = 80;
-            break;
-        case 8:
-            snake_state.velocity = 75;
-            break;
-        case 9:
-            snake_state.velocity = 50;
-            break;
-        case 10:
-            snake_state.velocity = 40;
-            break;
-        case 18:
-            snake_state.velocity = 20;
-            break;
-        default:
-            break;
-    }
-}
-
 stop_game = () => { //stop game, reload the page and the game is stop
     location.reload();
     localStorage.removeItem("MUTED");
@@ -266,6 +243,14 @@ display = () => { //Display disponible in the game
     display_board.style.display = "none";
     let display_infor = document.getElementById("infor");
     display_infor.style.display = "none";
+    console.log(snake_state.level)
+    // if (snake_state.level === ""){
+    //     document.getElementById('start').disabled = true;
+    //     document.getElementById('validation').style.display = "";
+    // }else {
+    //     document.getElementById('start').disabled = false;
+    //     document.getElementById('validation').style.display = "none";
+    // }
     // let user = document.getElementById('username1');
     // console.log(user.textContent)
     // if (user.textContent == 0) {
@@ -278,32 +263,47 @@ choose_map = (type) => { //To choose the map, the user can choose the map in dif
         case 1:
             let map = document.getElementById('mapa1');
             let bcg = document.getElementById('miCanvas');
+            let lev = document.getElementById('level');
             bcg.style.backgroundImage = 'url("'+map.src+'")';
+            snake_state.level= "CLASSIC";
+            lev.innerHTML = "LEVEL: "+ snake_state.level;
+            display();
             break;
         case 2:
             let map1 = document.getElementById('mapa2');
             let bcg1 = document.getElementById('miCanvas');
+            let lev1 = document.getElementById('level');
             bcg1.style.backgroundImage = 'url("'+map1.src+'")';
+            snake_state.level= "ADVANCED";
+            lev1.innerHTML = "LEVEL: "+ snake_state.level;
+            display();
             break;
         case 3:
+            let lev2 = document.getElementById('level');
             let map2 = document.getElementById('mapa3');
-            let bcg2 = document.getElementById('miCanvas');
-            bcg2.style.backgroundImage = 'url("'+map2.src+'")';
+            snake_state.level= "PRO";
+            snake_state.url_map = map2.src;
+            lev2.innerHTML = "LEVEL: "+ snake_state.level;
+            display();
+            map_pro(map2.src);
+
             break;
-        case 4:
-            let file_map = document.getElementById("file_map");
-            let bcg3 = document.getElementById('miCanvas');
-            url_image = URL.createObjectURL(file_map.files[0]);
-            bcg3.style.backgroundImage = 'url("'+url_image+'")';
-            break;
-        case 5:
-            let file_url = document.getElementById("file_url");
-            let bcg5 = document.getElementById('miCanvas');
-            bcg5.style.backgroundImage = 'url("'+file_url.value+'")';
-            break;
+            
+        // case 4:
+        //     let file_map = document.getElementById("file_map");
+        //     let bcg3 = document.getElementById('miCanvas');
+        //     url_image = URL.createObjectURL(file_map.files[0]);
+        //     bcg3.style.backgroundImage = 'url("'+url_image+'")';
+        //     break;
+        // case 5:
+        //     let file_url = document.getElementById("file_url");
+        //     let bcg5 = document.getElementById('miCanvas');
+        //     bcg5.style.backgroundImage = 'url("'+file_url.value+'")';
+        //     break;
         default:
             break;
     }   
+    
 }
 
 start_game = () => { //FUNCTION START GAME, get differents elemnt to apply changes of the game (score, display, user...)
