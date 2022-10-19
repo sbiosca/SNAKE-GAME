@@ -1,6 +1,7 @@
 body {
     background-color: rgb(215, 215, 215);
-    margin: 64px;
+    margin: 60px;
+    margin-top: -40px;
     text-align: center; 
 }
 

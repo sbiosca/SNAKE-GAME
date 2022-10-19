@@ -40,6 +40,7 @@ let snake_state = { //snake_state, define the values of snake, ball, direction, 
 random_number = (key) => {
     switch (key) {
         case 1:
+            //return parseInt(Math.random() * board1) + "_" +parseInt(Math.random() * board2);
             return {
                 x: parseInt(Math.random() * board1),
                 y: parseInt(Math.random() * board2)
@@ -58,7 +59,7 @@ random_number = (key) => {
 
 
 //FUNCTION GAME_SNAKE, this function have
-game_snake = () => {
+game_snake = async () => {
     const headds = snake_state.ball[0]; //DECLARED THE VARIABLE headds, to define ball direction.
     const dirx = snake_state.direction.x; //DECLARED THE VARIABLE dirx, to define direction X in the board canvas.
     const diry = snake_state.direction.y; //DECLARED THE VARIABLE diry, to define direction Y in the board canvas.
@@ -66,7 +67,7 @@ game_snake = () => {
     let interval = snake_state.velocity; //DECLARED THE VARIABLE interval, to define snake velocity
 
     let score = (
-        headds.x === snake_state.chan.x && headds.y === snake_state.chan.y  //THIS DECLARED score, WHEN THE SNAKE DIRECTION IS THE SAME THAN THE DIRECTION OF THE BALL. (SNAKE EAT A BALL) 
+        await headds.x === snake_state.chan.x && headds.y === snake_state.chan.y  //THIS DECLARED score, WHEN THE SNAKE DIRECTION IS THE SAME THAN THE DIRECTION OF THE BALL. (SNAKE EAT A BALL) 
     );
 
     if (snake_state.runSnake === run_game) {  //IF THE GAME IS ON:
@@ -82,7 +83,7 @@ game_snake = () => {
         }
     }
 
-    if (colision()) { //IF THE SNAKES TOUCHES THE WALL, COLISION()
+    if (colision() || blocks()) { //IF THE SNAKES TOUCHES THE WALL, COLISION()
         //IF HAVE LOCALSTORAGE(the user muted the music on the icon), THE AUDIO IS MUTED.
         if (localStorage.getItem("MUTED")) {
             music_colision.pause();
@@ -128,6 +129,7 @@ game_snake = () => {
         snake_state.chan = random_number(1);//VARIABLE CHAN TO RANDOM NUMBER, TO BALL APPEAR IN ANOTHER PLACE OF THE BOARD
         snake_state.chan1 = random_number(2);
         
+        console.log()
         console.log(snake_state.chan1);
         let puntuation = document.getElementById('puntuation2'); //GET THE PUNTUATION ACTUAL TO AUGMENT THE NEW SCORE +1
         scored++; //AUGMENT SCORED +1
@@ -138,7 +140,8 @@ game_snake = () => {
         }else if(snake_state.level === "ADVANCED") {
             levels_adv(scored); 
         }else if (snake_state.level === "PRO") {
-            levels_pro(scored, snake_state.url_map);    
+            levels_pro(scored, snake_state.url_map);
+            blocks();    
         }
 
          //CALL THE FUNCTION LEVEL IN THE NEW PUNTUATION TO PASS THE LEVEL AND THE GAME IS MORE
@@ -150,6 +153,7 @@ game_snake = () => {
     }  
     window.requestAnimationFrame(square_draw); //FUNCTION requestAnimationFrame, to move the game
     setTimeout(game_snake, interval);
+    
 }
 
 colision = () => { //FUNCTION COLISION, when the SNAKE touch the wall
@@ -198,7 +202,7 @@ square_draw = () => { //draw square.
         const {x, y} = snake_state.ball[i];
         i++;
         snake_draw("blue", x, y);
-        // console.log(x,y)
+        console.log(x,y)
     }
     const {x, y} = snake_state.chan;
     snake_draw("red", x, y);
@@ -244,18 +248,19 @@ display = () => { //Display disponible in the game
     let display_infor = document.getElementById("infor");
     display_infor.style.display = "none";
     console.log(snake_state.level)
-    // if (snake_state.level === ""){
-    //     document.getElementById('start').disabled = true;
-    //     document.getElementById('validation').style.display = "";
-    // }else {
-    //     document.getElementById('start').disabled = false;
-    //     document.getElementById('validation').style.display = "none";
-    // }
+    if (snake_state.level === ""){
+        document.getElementById('start').disabled = true;
+        document.getElementById('validation').style.display = "";
+    }else {
+        document.getElementById('start').disabled = false;
+        document.getElementById('validation').style.display = "none";
+    }
     // let user = document.getElementById('username1');
     // console.log(user.textContent)
     // if (user.textContent == 0) {
     //     let start = document.getElementById('start').disabled = true;
     // }
+    //blocks();
 }
 
 choose_map = (type) => { //To choose the map, the user can choose the map in different photos or url files
@@ -351,4 +356,3 @@ start_game = () => { //FUNCTION START GAME, get differents elemnt to apply chang
 //CALL TWO FUNCTIONS
 choose_map();
 display();
-
