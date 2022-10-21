@@ -23,6 +23,7 @@ levels_pro = (scored, map=undefined) => { //IN THIS function apply a switch case
             break;
         case 8:
             snake_state.velocity = 75;
+            map_pro(map);
             break;
         case 9:
             snake_state.velocity = 50;
@@ -30,8 +31,16 @@ levels_pro = (scored, map=undefined) => { //IN THIS function apply a switch case
         case 10:
             snake_state.velocity = 40;
             break;
+        case 15:
+            snake_state.velocity = 25;
+            map_pro(map);
+            break;
         case 18:
             snake_state.velocity = 20;
+            break;
+        case 25:
+            snake_state.velocity = 10;
+            map_pro(map);
             break;
         default:
             break;
@@ -111,11 +120,17 @@ blocks = () => {
     let snake = snake_state.ball[0];
     let died = snake.x + "_" + snake.y;
     for (let i = 0; i < position_array.length; i++) {
+        //IF THE POSITION OF SNAKE IS THE SAME THAN POSITION OF THE BLOCK, RETURN TRUE TO COLISION
+        //AND ALWAYS THE LEVEL IS PRO
         if (died === position_array[i] && snake_state.level === "PRO") {
             return true;
         }
-        if (random_number() === position_array[i]) {
-            console.log("PRUEBAAAAAAAAAA")
+
+        //CHECK THE BALL ISN´T THE SAME POSITION WITH BLOCKS
+        if (snake_state.random_direction === position_array[i]) {
+            //window.alert("PEPE");
+            snake_state.chan = random_number(1);
+            snake_state.random_direction = snake_state.chan;
         }
     }
     state_number.direction = position_array; 

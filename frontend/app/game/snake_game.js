@@ -33,7 +33,8 @@ let snake_state = { //snake_state, define the values of snake, ball, direction, 
     runSnake: run_game,
     velocity: 120,
     level: "",
-    url_map: ""
+    url_map: "",
+    random_direction: ""
 }
 
 //FUNCTION RANDOM NUMBER, choose a random number in the board
@@ -67,7 +68,7 @@ game_snake = async () => {
     let interval = snake_state.velocity; //DECLARED THE VARIABLE interval, to define snake velocity
 
     let score = (
-        await headds.x === snake_state.chan.x && headds.y === snake_state.chan.y  //THIS DECLARED score, WHEN THE SNAKE DIRECTION IS THE SAME THAN THE DIRECTION OF THE BALL. (SNAKE EAT A BALL) 
+        headds.x === snake_state.chan.x && headds.y === snake_state.chan.y  //THIS DECLARED score, WHEN THE SNAKE DIRECTION IS THE SAME THAN THE DIRECTION OF THE BALL. (SNAKE EAT A BALL) 
     );
 
     if (snake_state.runSnake === run_game) {  //IF THE GAME IS ON:
@@ -94,7 +95,8 @@ game_snake = async () => {
         let record = document.getElementById('puntuation_later'); //NEW_SCORE TO PRINT 
         let puntuation = document.getElementById('puntuation2'); //ACTUAL PUNTUATION
         let new_score = puntuation.textContent; //SELECT THE ACTUAL PUNTUATION
-        let old_score = 0 + localStorage.getItem('SCORED'); //GET IN LOCALSTORAGE OLD_SCORE
+        let old_score = localStorage.getItem('SCORED'); //GET IN LOCALSTORAGE OLD_SCORE
+        //window.alert(old_score)
         snake_state.state = 0; //STATE SNAKE NOW IS 0
         snake_state.runSnake = 0; //SNAKE NOW IS 0, BECAUSE THE SNAKE DIE
         snake_state.chan = 0; //CHANGE SNAKE 0
@@ -128,8 +130,12 @@ game_snake = async () => {
         snake_state.state = length_snake; //NOW THE LENGTH SNAKE IS THE SAME THAN state (to augment length)
         snake_state.chan = random_number(1);//VARIABLE CHAN TO RANDOM NUMBER, TO BALL APPEAR IN ANOTHER PLACE OF THE BOARD
         snake_state.chan1 = random_number(2);
-        
-        console.log()
+
+        //CHECK THE BALL ISN´T THE SAME POSITION WITH BLOCKS
+        //const direction_obj = JSON.stringify(snake_state.chan);
+        const direction_parse = JSON.parse(JSON.stringify(snake_state.chan));
+        snake_state.random_direction = direction_parse.x + "_" + direction_parse.y;
+
         console.log(snake_state.chan1);
         let puntuation = document.getElementById('puntuation2'); //GET THE PUNTUATION ACTUAL TO AUGMENT THE NEW SCORE +1
         scored++; //AUGMENT SCORED +1
@@ -168,10 +174,6 @@ colision = () => { //FUNCTION COLISION, when the SNAKE touch the wall
     if (number_snake === number_block) {
         return true;
     }
-    // console.log(number_snake);
-    // if (number_snake === "13_25") {
-    //     return true;
-    // }
 
     while (i < snake_state.ball.length) { //Bucle while length ball, depend direction return true or false
         const ssn = snake_state.ball[i];
@@ -243,6 +245,7 @@ show_infor = () => { //If the user click show infor, the display is visible
 }
 
 display = () => { //Display disponible in the game
+    let user = document.getElementById('username1');
     let display_board = document.getElementById("PLAY_GAME");
     display_board.style.display = "none";
     let display_infor = document.getElementById("infor");
@@ -255,22 +258,21 @@ display = () => { //Display disponible in the game
         document.getElementById('start').disabled = false;
         document.getElementById('validation').style.display = "none";
     }
-    // let user = document.getElementById('username1');
-    // console.log(user.textContent)
-    // if (user.textContent == 0) {
-    //     let start = document.getElementById('start').disabled = true;
-    // }
+    console.log(user.textContent)
+    if (user.textContent == 0) {
+        document.getElementById('start').disabled = true;
+    }
     //blocks();
 }
 
-choose_map = (type) => { //To choose the map, the user can choose the map in different photos or url files
+choose_map = async (type) => { //To choose the map, the user can choose the map in different photos or url files
     switch (type) {
         case 1:
             let map = document.getElementById('mapa1');
             let bcg = document.getElementById('miCanvas');
             let lev = document.getElementById('level');
             bcg.style.backgroundImage = 'url("'+map.src+'")';
-            snake_state.level= "CLASSIC";
+            snake_state.level = "CLASSIC";
             lev.innerHTML = "LEVEL: "+ snake_state.level;
             display();
             break;
@@ -293,18 +295,6 @@ choose_map = (type) => { //To choose the map, the user can choose the map in dif
             map_pro(map2.src);
 
             break;
-            
-        // case 4:
-        //     let file_map = document.getElementById("file_map");
-        //     let bcg3 = document.getElementById('miCanvas');
-        //     url_image = URL.createObjectURL(file_map.files[0]);
-        //     bcg3.style.backgroundImage = 'url("'+url_image+'")';
-        //     break;
-        // case 5:
-        //     let file_url = document.getElementById("file_url");
-        //     let bcg5 = document.getElementById('miCanvas');
-        //     bcg5.style.backgroundImage = 'url("'+file_url.value+'")';
-        //     break;
         default:
             break;
     }   
@@ -353,6 +343,24 @@ start_game = () => { //FUNCTION START GAME, get differents elemnt to apply chang
     game_snake();
 }
 
+login = () => {
+    let user = document.getElementById('username1');
+    let username = localStorage.getItem("USER")
+    let form = document.getElementById('form')
+    let logout = document.getElementById('form_logout')
+    if (username) {
+        form.style.display = "none";
+        logout.style.display = ""
+        let name = atob(username);
+        user.innerHTML = name;
+    }
+}
+
+logout = () => {
+    localStorage.removeItem("USER")
+}
+
 //CALL TWO FUNCTIONS
 choose_map();
 display();
+login();

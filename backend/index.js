@@ -1,24 +1,24 @@
 const express = require("express");
-// const conectarDB = require("./config/db");
-// const cors = require("cors");
+const conectarDB = require("./config/db");
+const cors = require("cors");
 const app = express();
 
 // var corsOptions = {
 //   origin: "http://localhost:4200"
 // };
 
-// app.use(cors());
-// conectarDB();
+app.use(cors());
+conectarDB();
 
 const port = process.env.PORT || 3000;
 //cargar models
 require('./');
 // require('./models/product.model');
-// require('./models/category.model');
+require('./models/auth.model');
 
 app.use(express.json());
 // app.use(cors());
-// app.use(require("./routes"));
+app.use(require("./routes"));
 
 app.get('/', function(req, res) {
   res.send("{Message: THE APPLICATION IS RUNNING}");

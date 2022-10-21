@@ -14,25 +14,27 @@
             <input type="checkbox" id="chk" aria-hidden="true">
     
                 <div class="signup">
-                    <form>
+                    
                         <label for="chk" aria-hidden="true">Sign up</label>
-                        <input type="text" name="txt" placeholder="User name" required="">
-                        <input type="email" name="email" placeholder="Email" required="">
-                        <input type="password" name="pswd" placeholder="Password" required="">
-                        <button>Sign up</button>
-                    </form>
+                        <input type="text" name="txt" id="username" placeholder="User name" required="">
+                        <input type="email" name="email" id="email" placeholder="Email" required="">
+                        <input type="password" name="passw" id="passw" placeholder="Password" required="">
+                        <input type="password" name="passw2" id="passw2" placeholder="Repeat Password" required="">
+                        <button onclick="submit_register()">Sign up</button>
+                   
                 </div>
     
                 <div class="login">
-                    <form>
-                        <label for="chk" aria-hidden="true">Login</label>
-                        <input type="email" name="email" placeholder="Email" required="">
-                        <input type="password" name="pswd" placeholder="Password" required="">
-                        <button>Login</button>
-                    </form>
+
+                        <label for="chk" aria-hidden="true">SIGN IN</label>
+                        <input type="text" name="txt" id="user" placeholder="User name" required="">
+                        <input type="password" name="passw" id="passw" placeholder="Password" value="" required="">
+                        
+                        <button onclick="submit_login()">Login</button>
+                    
                 </div>
         </div>
     </div>
-    
+    <script src="auth.js"></script>
 </body>
 </html>

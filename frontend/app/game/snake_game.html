@@ -11,10 +11,14 @@
     <div class="main">
         <h1>SNAKE GAME</h1>
         <div id="LOGIN">
-            <form autocomplete="on">
-                <button class="login"><a href="../auth/login.html">LOGIN</a></button>
-                <button class="regi"><a href="../auth/login.html">REGISTER</a></button><p></p>
+            <form autocomplete="on" id="form">
+                <button class="login"><a href="../auth/login.html">SIGN UP</a></button><p></p>
+                <!-- <button class="regi"><a href="../auth/login.html">REGISTER</a></button><p></p> -->
             </form>
+            <form autocomplete="on" id="form_logout" style="display: none;">
+                <button class="login" onclick="logout()">LOGOUT</button><p></p>
+            </form>
+            
         </div>
         <div id="USER">
             USERNAME:<p id="username1"></p>
