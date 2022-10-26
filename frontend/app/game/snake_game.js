@@ -13,7 +13,7 @@ const CONTROL_GAME = { //KEYBOARD CONTROL GAME
     '8': [-1 , 0],
     '4': [0, -1],
     '6': [0, 1],
-    '2': [1, 0]
+    '5': [1, 0]
 }
 const run_game = 1; //GAME
 const size = 10; //SIZE SNAKE
@@ -34,7 +34,8 @@ let snake_state = { //snake_state, define the values of snake, ball, direction, 
     velocity: 120,
     level: "",
     url_map: "",
-    random_direction: ""
+    random_direction: "",
+    data_user: ""
 }
 
 //FUNCTION RANDOM NUMBER, choose a random number in the board
@@ -102,11 +103,15 @@ game_snake = async () => {
         snake_state.chan = 0; //CHANGE SNAKE 0
 
 
-        if (new_score > old_score) { //IF OLD_SCORE IS SMALLER THAN NEW_SCORE ENTER IN THIS FUNCTION TO AUGMENT THE PUNTUATION IN THE SCOREBOARD
-            localStorage.removeItem('SCORED'); //REMOVE THE OLD_SCORE IN LOCALSTORAGE
-            record.innerHTML = "RECORD:"+new_score; //PRINT THE NEW_SCORE TOP, IN THE SCOREBOARD
-            localStorage.setItem('SCORED', new_score); //PUT THE NEW_SCORE IN LOCALSTORAGE
-        }
+        // if (new_score > old_score) { //IF OLD_SCORE IS SMALLER THAN NEW_SCORE ENTER IN THIS FUNCTION TO AUGMENT THE PUNTUATION IN THE SCOREBOARD
+        //     localStorage.removeItem('SCORED'); //REMOVE THE OLD_SCORE IN LOCALSTORAGE
+        //     record.innerHTML = "RECORD:"+new_score; //PRINT THE NEW_SCORE TOP, IN THE SCOREBOARD
+        //     localStorage.setItem('SCORED', new_score); //PUT THE NEW_SCORE IN LOCALSTORAGE
+        // }
+        snake_state.data_user.score = new_score;
+        update_score(snake_state.data_user);
+
+
         let canvas = document.getElementById('miCanvas'); //SELECT THE CANVAS ELEMENT
         canvas.style.backgroundImage = 'url(../../assets/images/game_over.jpg)'; //PUT THE BACKGROUND OF BOARD THE GAME OVER TO END GAME
         
@@ -345,14 +350,22 @@ start_game = () => { //FUNCTION START GAME, get differents elemnt to apply chang
 
 login = () => {
     let user = document.getElementById('username1');
-    let username = localStorage.getItem("USER")
-    let form = document.getElementById('form')
-    let logout = document.getElementById('form_logout')
+    let avatar = document.getElementById('avatar_profile');
+    let username = localStorage.getItem("USER");
+    let form = document.getElementById('form');
+    let logout = document.getElementById('form_logout');
+    let profile = document.getElementById('profile_css');
     if (username) {
+        profile.style.display = "";
+        user.style.display = "";
         form.style.display = "none";
         logout.style.display = ""
-        let name = atob(username);
-        user.innerHTML = name;
+        let data = atob(username);
+        data = JSON.parse(data)
+        user.innerHTML = data.user;
+        avatar.src = data.avatar;
+        snake_state.data_user = data;
+        console.log(snake_state.data_user)
     }
 }
 

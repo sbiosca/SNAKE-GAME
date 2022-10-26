@@ -20,8 +20,12 @@
             </form>
             
         </div>
-        <div id="USER">
-            USERNAME:<p id="username1"></p>
+        <div id="profile_css" >
+            <span id="username1" style="display: none;"></span>
+            <img style="width: 100px;" id="avatar_profile" src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"/>
+        </div>
+        
+        <div id="USER">    
             <p>CHOOSE THE LEVEL:</p>
             <!-- <input type="file" accept="image/*" id="file_map" onchange="choose_map(4)"/><p></p>
             PUT URL FILE: <input type="url" id="file_url" onchange="choose_map(5)" placeholder="https://ejemplo-es.jpg"/><p></p> -->
@@ -74,6 +78,7 @@
         <div id="lose_game">
             <strong class="losed">END, YOU LOST!</strong>
         </div>
+        <script src="../auth/auth.js"></script>
         <script id="pro" src="levels/pro/level_pro.js"></script>
         <script id="classic" src="levels/clasic/level_classic.js"></script>
         <script id="advanced" src="levels/advanced/level_advanced.js"></script>

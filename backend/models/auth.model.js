@@ -19,6 +19,9 @@ const AuthSchema = mongoose.Schema({
   },
   score: {
     type: Number
+  },
+  avatar: {
+    type: String
   }
 });
 
@@ -41,8 +44,10 @@ AuthSchema.methods.toListJSONFor = function () {
     user: this.user,
     email: this.email,
     passw: this.passw,
-    score: this.score
+    score: this.score,
+    avatar: this.avatar
   };
 };
+
 
 module.exports = mongoose.model("auth", AuthSchema);
