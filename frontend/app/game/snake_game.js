@@ -87,35 +87,43 @@ game_snake = async () => {
 
     if (colision() || blocks()) { //IF THE SNAKES TOUCHES THE WALL, COLISION()
         //IF HAVE LOCALSTORAGE(the user muted the music on the icon), THE AUDIO IS MUTED.
+        
         if (localStorage.getItem("MUTED")) {
             music_colision.pause();
         }else { //IF NOT HAVE LOCALSTORAGE(the user want audio in game), THE AUDIO ISN'T MUTED.
             music_colision.play();
         }
         
-        let record = document.getElementById('puntuation_later'); //NEW_SCORE TO PRINT 
+        //let record = document.getElementById('puntuation_later'); //NEW_SCORE TO PRINT 
         let puntuation = document.getElementById('puntuation2'); //ACTUAL PUNTUATION
+        let score_profile = document.getElementById('score_profile')
         let new_score = puntuation.textContent; //SELECT THE ACTUAL PUNTUATION
-        let old_score = localStorage.getItem('SCORED'); //GET IN LOCALSTORAGE OLD_SCORE
-        //window.alert(old_score)
+        let old_score = score_profile.textContent; //GET IN OLD_SCORE
         snake_state.state = 0; //STATE SNAKE NOW IS 0
         snake_state.runSnake = 0; //SNAKE NOW IS 0, BECAUSE THE SNAKE DIE
         snake_state.chan = 0; //CHANGE SNAKE 0
 
-
+        //window.alert(new_score  +" "+ old_score)
         // if (new_score > old_score) { //IF OLD_SCORE IS SMALLER THAN NEW_SCORE ENTER IN THIS FUNCTION TO AUGMENT THE PUNTUATION IN THE SCOREBOARD
         //     localStorage.removeItem('SCORED'); //REMOVE THE OLD_SCORE IN LOCALSTORAGE
         //     record.innerHTML = "RECORD:"+new_score; //PRINT THE NEW_SCORE TOP, IN THE SCOREBOARD
         //     localStorage.setItem('SCORED', new_score); //PUT THE NEW_SCORE IN LOCALSTORAGE
         // }
-        snake_state.data_user.score = new_score;
-        update_score(snake_state.data_user);
+        if (parseInt(new_score) > parseInt(old_score)) {
+            localStorage.removeItem('score_user');
+            snake_state.data_user.score = new_score;
+            update_score(snake_state.data_user);
+            localStorage.setItem('score_user', new_score);
+        }
+        
+        
 
 
         let canvas = document.getElementById('miCanvas'); //SELECT THE CANVAS ELEMENT
         canvas.style.backgroundImage = 'url(../../assets/images/game_over.jpg)'; //PUT THE BACKGROUND OF BOARD THE GAME OVER TO END GAME
         
         setTimeout (() => { //PUT TIMEOUT of 5 seconds TO STOP GAME
+            
             stop_game();
         },2000)
 
@@ -350,30 +358,76 @@ start_game = () => { //FUNCTION START GAME, get differents elemnt to apply chang
 
 login = () => {
     let user = document.getElementById('username1');
+    let score = document.getElementById('score_profile')
+    let top_score = document.getElementById('top_score')
     let avatar = document.getElementById('avatar_profile');
+    let ranking = document.getElementById('ranking')
     let username = localStorage.getItem("USER");
     let form = document.getElementById('form');
     let logout = document.getElementById('form_logout');
     let profile = document.getElementById('profile_css');
+    let score_localstorage = localStorage.getItem('score_user');
     if (username) {
         profile.style.display = "";
+        ranking.style.display = "";
         user.style.display = "";
+        score.style.display = "";
+        top_score.style.display = "";
         form.style.display = "none";
         logout.style.display = ""
         let data = atob(username);
         data = JSON.parse(data)
-        user.innerHTML = data.user;
-        avatar.src = data.avatar;
         snake_state.data_user = data;
-        console.log(snake_state.data_user)
+        if (!score_localstorage) {
+            score.innerHTML = snake_state.data_user.score;
+        }else {
+            score.innerHTML = score_localstorage;
+        }
+        user.innerHTML = data.user;
+        //score.innerHTML = "Score: " + snake_state.data_user.score;
+        avatar.src = data.avatar;
+        //localStorage.setItem("score_user", snake_state.data_user.score)
+        console.log(data)
     }
 }
 
 logout = () => {
     localStorage.removeItem("USER")
+    localStorage.removeItem("USERS")
+    localStorage.removeItem("score_user")
+}
+function general_puntuation(){
+    let users = localStorage.getItem("USERS") 
+    if (users){
+        let data = atob(users);
+        let value = JSON.parse(data)
+        console.log(value);
+        let array = [];
+        let ranking_score = "";
+        let position1 = document.getElementById('position1');
+        let position2 = document.getElementById('position2');
+        let position3 = document.getElementById('position3');
+        for (let i = 0; i < value.length; i++) {
+            array.push(value[i].score)
+            console.log(value[i].user +": "+ value[i].score);
+            ranking_score = array.sort(function(a,b){return b - a })
+            for (let ii = 0; ii < ranking_score.length; ii++) {
+                if (ranking_score[0] === value[ii].score) {
+                    position1.innerHTML = "1."+ value[ii].user + ": " + ranking_score[0];
+                }else if (ranking_score[1] === value[ii].score) {
+                    position2.innerHTML = "2."+ value[ii].user + ": " + ranking_score[1];
+                }else if (ranking_score[2] === value[ii].score) {
+                    position3.innerHTML = "3."+ value[ii].user + ": " + ranking_score[2];
+                }
+            }
+        }
+        console.log(ranking_score)
+        
+    }
 }
 
 //CALL TWO FUNCTIONS
+general_puntuation();
 choose_map();
 display();
 login();

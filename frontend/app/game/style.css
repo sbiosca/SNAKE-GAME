@@ -42,7 +42,7 @@ a {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.login, .regi {
+.login, .regi, .return {
     box-shadow: -3px 4px 0px 0px #899599;
 	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
 	background-color:#ededed;
@@ -78,7 +78,28 @@ a {
     font-family: cursive;
     border: 2px solid black;
     position: absolute;
-    top: 98%;
-    right: 19%;
+    top: 155%;
     padding: 4%;
+}
+#top_score {
+    font-family: cursive;
+    border: 2px solid black;
+    position: absolute;
+    top: 98%;
+    left: 0.1%;
+    padding: 4%;
+}
+
+#ranking {
+    font-family: cursive;
+    border: 2px solid black;
+    position: absolute;
+    top: 195%;
+    left: 0.1%;
+    padding: 4%;
+}
+
+.ranking_span {
+    font-size: 25px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

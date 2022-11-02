@@ -20,15 +20,12 @@ router.post('/', async (req, res) => {
     res.send(req.body);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Hubo un error con el register");
+    res.status(500).send(false);
   }
 });
 
 router.put('/', async (req, res) => {
   try {
-    //let score;
-    //score = new auth();
-    //let user_id = "63516493a057ff1b0e1e4e1e"
     let score = req.body.score;
     await auth.findByIdAndUpdate(req.body.id,  {score: score},
                             function (err, docs) {
@@ -36,14 +33,11 @@ router.put('/', async (req, res) => {
           console.log(err)
       }
       else{
-          console.log("Updated User : ", docs);
+          //console.log("Updated User : ", docs);
       }
   });
-    //await auth.findByIdAndUpdate(req.params.id, req.body);
-    //await score.updateOne({score: score}) 
-    //res.json(auth);
   }catch (error) {
-    console.log(error);
+    //console.log(error);
     res.status(500).send("Hubo un error con update");
   }
 });

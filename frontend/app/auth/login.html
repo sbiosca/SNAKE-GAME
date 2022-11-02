@@ -18,7 +18,9 @@
                         <input type="email" name="email" id="email" placeholder="Email" required="">
                         <input type="password" name="passw" id="passw1" placeholder="Password" required="">
                         <input type="password" name="passw2" id="passw2" placeholder="Repeat Password" required="">
-                        <span id="error_register1" style="color:red; display: none;">The passwords are not same</span>
+                        <span id="user_exists" style="color:red; display: none; ">The user or email is not available</span>
+                        <span id="error_email1" style="color:red; display: none; ">The email format is not valid</span>
+                        <span id="error_register1" style="color:red; display: none; ">The passwords are not same</span>
                         <button onclick="submit_register()">Sign up</button>
                 </div>
                 
@@ -32,5 +34,6 @@
         </div>
     </div>
     <script src="auth.js"></script>
+    <script src="../game/snake_game.js"></script>
 </body>
 </html>

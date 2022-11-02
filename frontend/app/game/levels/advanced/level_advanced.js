@@ -4,10 +4,10 @@ levels_adv = (scored) => { //IN THIS function apply a switch case to push differ
 
     switch (scored) {
         case 2:
-            snake_state.velocity = 110;
+            snake_state.velocity = 120;
             break;
-        case 4:
-            snake_state.velocity = 100;
+        case 3:
+            snake_state.velocity = 90;
             break;
         case 5:
             snake_state.velocity = 85;
@@ -22,7 +22,10 @@ levels_adv = (scored) => { //IN THIS function apply a switch case to push differ
             snake_state.velocity = 50;
             break;
         case 10:
-            snake_state.velocity = 40;
+            snake_state.velocity = 30;
+            break;
+        case 15:
+            snake_state.velocity = 25;
             break;
         case 18:
             snake_state.velocity = 20;
