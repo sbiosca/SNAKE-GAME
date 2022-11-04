@@ -103,12 +103,6 @@ game_snake = async () => {
         snake_state.runSnake = 0; //SNAKE NOW IS 0, BECAUSE THE SNAKE DIE
         snake_state.chan = 0; //CHANGE SNAKE 0
 
-        //window.alert(new_score  +" "+ old_score)
-        // if (new_score > old_score) { //IF OLD_SCORE IS SMALLER THAN NEW_SCORE ENTER IN THIS FUNCTION TO AUGMENT THE PUNTUATION IN THE SCOREBOARD
-        //     localStorage.removeItem('SCORED'); //REMOVE THE OLD_SCORE IN LOCALSTORAGE
-        //     record.innerHTML = "RECORD:"+new_score; //PRINT THE NEW_SCORE TOP, IN THE SCOREBOARD
-        //     localStorage.setItem('SCORED', new_score); //PUT THE NEW_SCORE IN LOCALSTORAGE
-        // }
         if (parseInt(new_score) > parseInt(old_score)) {
             localStorage.removeItem('score_user');
             snake_state.data_user.score = new_score;

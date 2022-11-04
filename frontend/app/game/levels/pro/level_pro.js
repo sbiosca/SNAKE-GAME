@@ -128,7 +128,6 @@ blocks = () => {
 
         //CHECK THE BALL ISN´T THE SAME POSITION WITH BLOCKS
         if (snake_state.random_direction === position_array[i]) {
-            //window.alert("PEPE");
             snake_state.chan = random_number(1);
             snake_state.random_direction = snake_state.chan;
         }
